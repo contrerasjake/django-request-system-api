@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='businessclearance',
             name='request_number',
-            field=models.PositiveIntegerField(default=0, unique=True, validators=[Forms.models.validate_num]),
+            field=models.PositiveIntegerField(default=0, unique=True),
         ),
     ]

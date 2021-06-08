@@ -3,12 +3,17 @@ from rest_framework import generics, status
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from .serializers import UserInformation, UserInformationSerializer, UserSerializer, LoginSerializer
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from django.conf import settings
 from django.contrib import auth
 import jwt
 
 # Create your views here.
-class ListUser(generics.ListCreateAPIView):
+class ListUser(ListCreateAPIView):
+    queryset = UserInformation.objects.all()
+    serializer_class = UserInformationSerializer
+
+class ListUserView(RetrieveUpdateDestroyAPIView):
     queryset = UserInformation.objects.all()
     serializer_class = UserInformationSerializer
 

@@ -6,16 +6,7 @@ from django.contrib.auth.models import User
 
 class UserInformationSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = (
-            'id',
-            'FirstName',
-            'LastName',
-            'MiddleName',
-            'Address',
-            'Email',
-            'MobileNumber',
-            'date_created',
-        )
+        fields = ('__all__')
         model = UserInformation
         
 class UserSerializer(serializers.ModelSerializer):
@@ -38,8 +29,7 @@ class UserSerializer(serializers.ModelSerializer):
         return User.objects.create_user(**validated_data)
 
 class LoginSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(
-        max_length=65, min_length=8, write_only=True)
+    password = serializers.CharField(max_length=65, min_length=8, write_only=True)
     username = serializers.CharField(max_length=255, min_length=2)
 
     class Meta:

@@ -23,12 +23,12 @@ from Forms.models import (
 # Register your models here.
 class paidformsAdmin(admin.ModelAdmin):
     search_fields = ['request_number']
-    list_display = ('resident_number', 'request_number', 'approval', 'is_paid')
+    list_display = ('request_number', 'resident_number', 'approval', 'is_paid')
     def __unicode__(self):
         return self.name
 class formsAdmin(admin.ModelAdmin):
     search_fields = ['request_number']
-    list_display = ('resident_number', 'request_number', 'approval')
+    list_display = ('request_number', 'resident_number', 'approval')
 
 #paid
 admin.site.register(Cedula,paidformsAdmin)

@@ -13,13 +13,8 @@ class ListUser(ListCreateAPIView):
     queryset = UserInformation.objects.all()
     serializer_class = UserInformationSerializer
 
-class ListUserView(RetrieveUpdateDestroyAPIView):
-    queryset = UserInformation.objects.all()
-    serializer_class = UserInformationSerializer
-
 class RegisterView(GenericAPIView):
     serializer_class = UserSerializer
-
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if(serializer.is_valid()):

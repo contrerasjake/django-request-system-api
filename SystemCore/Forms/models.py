@@ -9,7 +9,7 @@ from django.utils.translation import gettext_lazy as _
 
 class Cedula(models.Model):
     
-    resident_number = models.ForeignKey(to=UserInformation, on_delete=models.CASCADE)
+    resident_number = models.ForeignKey(UserInformation, on_delete=models.CASCADE)
     request_number = models.CharField(max_length = 100, blank=False,unique=True)
     birth_place = models.CharField(max_length = 100, blank=False)
     profession = models.CharField(max_length = 100, null=True, blank=True)

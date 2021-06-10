@@ -6,23 +6,14 @@ from django.contrib.auth.models import User
 
 class UserInformationSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = (
-            'id',
-            'FirstName',
-            'LastName',
-            'MiddleName',
-            'Address',
-            'Email',
-            'MobileNumber',
-            'date_created',
-        )
+        fields = ('__all__')
         model = UserInformation
         
 class UserSerializer(serializers.ModelSerializer):
     password=serializers.CharField(max_length=65, min_length=8, write_only=True)
-    email=serializers.EmailField(max_length=255,min_length=4)
-    first_name=serializers.CharField(max_length=255,min_length=2)
-    last_name=serializers.CharField(max_length=255,min_length=2)
+    email=models.ForeignKey(to=UserInformation, on_delete=models.CASCADE)
+    first_name=models.ForeignKey(to=UserInformation, on_delete=models.CASCADE)
+    last_name=models.ForeignKey(to=UserInformation, on_delete=models.CASCADE)
 
     class Meta:
         model=User
@@ -38,8 +29,7 @@ class UserSerializer(serializers.ModelSerializer):
         return User.objects.create_user(**validated_data)
 
 class LoginSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(
-        max_length=65, min_length=8, write_only=True)
+    password = serializers.CharField(max_length=65, min_length=8, write_only=True)
     username = serializers.CharField(max_length=255, min_length=2)
 
     class Meta:

@@ -9,9 +9,11 @@ verify_ssl = true
 django = "*"
 djangorestframework = "*"
 django-phonenumber-field = {extras = ["phonenumbers"], version = "*"}
-pyjwt = "*"
 python-dotenv = "*"
 pillow = "*"
+django-rest-auth = "*"
+pyjwt = "*"
+djangorestframework-jwt = "*"
 
 [requires]
 python_version = "3.8"

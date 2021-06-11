@@ -3,11 +3,21 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from datetime import date
+from django.contrib.auth.models import AbstractUser
+from django.conf import settings
 
+class User(AbstractUser):
+    username = models.CharField(blank=True, null=True, max_length=10)
+    email = models.EmailField(_('email address'), unique=True)
 
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+
+    def __str__(self):
+        return "{}".format(self.email)
 # Create your models here.
 class UserInformation(models.Model):
-
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, related_name='profile')
     GENDER_CHOICES = (
         ('F', 'Female'),
         ('M', 'Male'),
@@ -111,12 +121,12 @@ class UserInformation(models.Model):
                 _('%(value)s is not a valid number'),
                 params={'value': value},
             )
-    UserName = models.CharField(max_length=100, blank=False, default='')
-    FirstName = models.CharField(max_length=100, blank=False)
-    LastName = models.CharField(max_length=100, blank=False)
+    # UserName = models.CharField(max_length=100, blank=False, default='')
+    # FirstName = models.CharField(max_length=100, blank=False)
+    # LastName = models.CharField(max_length=100, blank=False)
     MiddleName = models.CharField(max_length=100, blank=False)
     Address = models.CharField(max_length=100, blank=False)
-    Email = models.EmailField(null=True, blank=True, max_length=254)
+    # Email = models.EmailField(null=True, blank=True, max_length=254)
     MobileNumber = PhoneNumberField(null=False, blank=False, unique=True)
     date_created = models.DateField(auto_now_add=True)
     resident_number=models.CharField(max_length=100, blank=False, null=True)
@@ -127,7 +137,7 @@ class UserInformation(models.Model):
     civil_status = models.CharField(max_length=50, blank=False, null = True, choices=CIVIL_STATUS)
     
     def __str__(self):
-        return '{} {} , {}'.format(self.FirstName, self.LastName, self.resident_number)
+        return '{}'.format(self.resident_number)
 
     
 

@@ -39,6 +39,8 @@ from .serializers import (
     MaternalCareSerializer
 )
 
+from rest_framework.permissions import AllowAny
+from UsersApp.permissions import IsLoggedInUserOrAdmin, IsAdminUser
 
 #Cedula
 class CedulaList(ListCreateAPIView):

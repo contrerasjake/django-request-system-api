@@ -57,6 +57,7 @@ class CedulaView(RetrieveUpdateDestroyAPIView):
 #BuildingClearance
 class BuildingClearanceList(ListCreateAPIView):
     
+    permission_classes = [IsAuthenticated]
     serializer_class = BuildingClearanceSerializer
     queryset = BuildingClearance.objects.all()
     
@@ -69,6 +70,7 @@ class BuildingClearanceView(RetrieveUpdateDestroyAPIView):
 #ConstituentID
 class ConstituentIDList(ListCreateAPIView):
     
+    permission_classes = [IsAuthenticated]
     serializer_class = ConstituentIDSerializer
     queryset = ConstituentID.objects.all()
 
@@ -80,7 +82,7 @@ class ConstituentIDView(RetrieveUpdateDestroyAPIView):
     
 #Residency
 class ResidencyList(ListCreateAPIView):
-    
+    permission_classes = [IsAuthenticated]
     serializer_class = ResidencySerializer
     queryset = Residency.objects.all()
 
@@ -92,7 +94,7 @@ class ResidencyView(RetrieveUpdateDestroyAPIView):
 #BarangayClearance
 
 class BarangayClearanceList(ListCreateAPIView):
-    
+    permission_classes = [IsAuthenticated]
     serializer_class = BarangayClearanceSerializer
     queryset = BarangayClearance.objects.all()
 
@@ -104,7 +106,7 @@ class BarangayClearanceView(RetrieveUpdateDestroyAPIView):
 #Comelec
 
 class ComelecList(ListCreateAPIView):
-    
+    permission_classes = [IsAuthenticated]
     serializer_class = ComelecSerializer
     queryset = Comelec.objects.all()
 
@@ -116,7 +118,7 @@ class ComelecView(RetrieveUpdateDestroyAPIView):
 #BusinessClosure
 
 class BusinessClosureList(ListCreateAPIView):
-    
+    permission_classes = [IsAuthenticated]
     serializer_class = BusinessClosureSerializer
     queryset = BusinessClosure.objects.all()
 
@@ -128,7 +130,7 @@ class BusinessClosureView(RetrieveUpdateDestroyAPIView):
 #BailBond
 
 class BailBondList(ListCreateAPIView):
-    
+    permission_classes = [IsAuthenticated]
     serializer_class = BailBondSerializer
     queryset = BailBond.objects.all()
 
@@ -140,7 +142,7 @@ class BailBondView(RetrieveUpdateDestroyAPIView):
 #Guardianship
 
 class GuardianshipList(ListCreateAPIView):
-    
+    permission_classes = [IsAuthenticated]
     serializer_class = GuardianshipSerializer
     queryset = Guardianship.objects.all()
 
@@ -152,7 +154,7 @@ class GuardianshipView(RetrieveUpdateDestroyAPIView):
 #IndigencyBurial
 
 class IndigencyBurialList(ListCreateAPIView):
-    
+    permission_classes = [IsAuthenticated]
     serializer_class = IndigencyBurialSerializer
     queryset = IndigencyBurial.objects.all()
 
@@ -164,7 +166,7 @@ class IndigencyBurialView(RetrieveUpdateDestroyAPIView):
 #IndigencyClearance
 
 class IndigencyClearanceList(ListCreateAPIView):
-    
+    permission_classes = [IsAuthenticated]
     serializer_class = IndigencyClearanceSerializer
     queryset = IndigencyClearance.objects.all()
 
@@ -176,7 +178,7 @@ class IndigencyClearanceView(RetrieveUpdateDestroyAPIView):
 #Voucher
 
 class VoucherList(ListCreateAPIView):
-    
+    permission_classes = [IsAuthenticated]
     serializer_class = VoucherSerializer
     queryset = Voucher.objects.all()
 
@@ -188,7 +190,7 @@ class VoucherView(RetrieveUpdateDestroyAPIView):
 #BusinessClearance
 
 class BusinessClearanceList(ListCreateAPIView):
-    
+    permission_classes = [IsAuthenticated]
     serializer_class = BusinessClearanceSerializer
     queryset = BusinessClearance.objects.all()
 
@@ -200,7 +202,7 @@ class BusinessClearanceView(RetrieveUpdateDestroyAPIView):
 #Immunization
 
 class ImmunizationList(ListCreateAPIView):
-    
+    permission_classes = [IsAuthenticated]
     serializer_class = ImmunizationSerializer
     queryset = Immunization.objects.all()
 
@@ -212,7 +214,7 @@ class ImmunizationView(RetrieveUpdateDestroyAPIView):
 #DentalService
 
 class DentalServiceList(ListCreateAPIView):
-    
+    permission_classes = [IsAuthenticated]
     serializer_class = DentalServiceSerializer
     queryset = DentalService.objects.all()
 
@@ -225,7 +227,7 @@ class DentalServiceView(RetrieveUpdateDestroyAPIView):
 #MaternalCare
 
 class MaternalCareList(ListCreateAPIView):
-    
+    permission_classes = [IsAuthenticated]
     serializer_class = MaternalCareSerializer
     queryset = MaternalCare.objects.all()
 

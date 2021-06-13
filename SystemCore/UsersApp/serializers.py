@@ -1,7 +1,6 @@
-from django.core.exceptions import ValidationError
-from django.db import models
 from rest_framework import serializers
 from .models import UserInformation, User
+from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 
 class UserInformationSerializer(serializers.ModelSerializer):
     
@@ -45,10 +44,17 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
         return instance
 
-class LoginSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(max_length=65, min_length=8, write_only=True)
-    username = serializers.CharField(max_length=255, min_length=2)
+class LogoutSerializer(serializers.Serializer):
+    refresh = serializers.CharField()
+    default_error_message = {
+        'bad_token': ('Token is expired or invalid')
+    }
+    def validate(self, attrs):
+        self.token = attrs['refresh']
+        return attrs
 
-    class Meta:
-        model = User
-        fields = ['username', 'password']
+    def save(self, **kwargs):
+        try:
+            RefreshToken(self.token).blacklist()
+        except TokenError:
+            self.fail('bad_token')

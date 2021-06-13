@@ -13,7 +13,7 @@ python-dotenv = "*"
 pillow = "*"
 django-rest-auth = "*"
 pyjwt = "*"
-djangorestframework-jwt = "*"
+djangorestframework-simplejwt = "*"
 
 [requires]
 python_version = "3.8"

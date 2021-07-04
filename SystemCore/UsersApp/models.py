@@ -135,7 +135,9 @@ class UserInformation(models.Model):
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null = True)
     province = models.CharField(max_length=50, blank=False,null = True, choices=PROVINCE_CHOICES)
     civil_status = models.CharField(max_length=50, blank=False, null = True, choices=CIVIL_STATUS)
-    
+    profile_pic = models.ImageField(null=True, blank=True, upload_to="profilepic/%Y/%m/%D/")
+    id_pic = models.ImageField(null=True, blank=True, upload_to="id_pic/%Y/%m/%D/")
+
     def __str__(self):
         return '{}'.format(self.resident_number)
 

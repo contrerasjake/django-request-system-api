@@ -6,7 +6,7 @@ class UserInformationSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = UserInformation
-        fields = ('MiddleName', 'Address', 'MobileNumber', 'resident_number', 'date_of_birth', 'age', 'gender', 'province', 'civil_status')
+        fields = ('MiddleName', 'Address', 'MobileNumber', 'resident_number', 'date_of_birth', 'age', 'gender', 'province', 'civil_status', 'profile_pic', 'id_pic')
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     profile = UserInformationSerializer(required=True)
 
@@ -40,6 +40,8 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         profile.gender = profile_data.get('gender', profile.gender)
         profile.province = profile_data.get('province', profile.province)
         profile.civil_status = profile_data.get('civil_status', profile.civil_status)
+        profile.profile_pic = profile_data.get('profile_pic', profile.profile_pic)
+        profile.id_pic = profile_data.get('id_pic', profile.id_pic)
         profile.save()
 
         return instance

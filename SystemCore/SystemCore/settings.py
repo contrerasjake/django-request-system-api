@@ -157,3 +157,7 @@ REST_FRAMEWORK = {
 }
 
 REST_USE_JWT = True
+
+MEDIA_URL = '/images/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')

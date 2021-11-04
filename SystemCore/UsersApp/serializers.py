@@ -1,6 +1,8 @@
-from rest_framework import serializers
+from rest_framework import serializers, status
 from .models import UserInformation, User
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework.response import Response
 
 class UserInformationSerializer(serializers.ModelSerializer):
     
@@ -45,6 +47,17 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         profile.save()
 
         return instance
+
+class LoginSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        # Add custom claims
+        token['email'] = user.email
+        # ...
+
+        return token
 
 class LogoutSerializer(serializers.Serializer):
     refresh = serializers.CharField()

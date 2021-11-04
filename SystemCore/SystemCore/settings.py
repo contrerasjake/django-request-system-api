@@ -27,7 +27,14 @@ SECRET_KEY = 'django-insecure-terho=s!)y(rg!*-%xb4!gsbd+m7873ma32@nzeusiwm-u_w#5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
+# ALLOWED_HOSTS=['http://localhost:3000']
+ALLOWED_HOSTS=['*']
+INTERNAL_IPS = ['*']
+CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_WHITELIST = (
+#        'http://localhost:3000',
+# )
 
 
 # Application definition
@@ -45,6 +52,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'rest_auth',
     'phonenumber_field',
+    'corsheaders',
     
 ]
 
@@ -56,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 REST_FRAMEWORK = {

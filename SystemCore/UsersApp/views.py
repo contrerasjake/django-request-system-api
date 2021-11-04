@@ -4,9 +4,10 @@ from django.conf import settings
 from rest_framework import viewsets, generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
-from .serializers import UserSerializer, LogoutSerializer
+from .serializers import UserSerializer, LogoutSerializer, LoginSerializer
 from .permissions import IsLoggedInUserOrAdmin, IsAdminUser
 from .models import User
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -34,3 +35,6 @@ class LogoutAPIView(generics.GenericAPIView):
         serializer.save()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class LoginView(TokenObtainPairView):
+    serializer_class = LoginSerializer

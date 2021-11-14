@@ -33,8 +33,8 @@ class UserSerializer(serializers.ModelSerializer):
                   'gender',
                   'province',
                   'civil_status',
-                  'profile_pic',
-                  'id_pic',
+                #   'profile_pic',
+                #   'id_pic',
                   ]
 
     def validate(self, attrs):

@@ -1,3 +1,4 @@
+from typing import ContextManager
 from django.shortcuts import render
 from django.contrib import auth
 from django.conf import settings
@@ -21,7 +22,7 @@ class RegisterView(generics.GenericAPIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class LogoutAPIView(generics.GenericAPIView):

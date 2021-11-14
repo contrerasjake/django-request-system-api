@@ -8,7 +8,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.conf import settings
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, first_name, middle_name, last_name, address, mobile_number, resident_number, date_of_birth, age, gender, province, civil_status, profile_pic, id_pic, password=None):
+    def create_user(self, email, first_name, middle_name, last_name, address, mobile_number, resident_number, date_of_birth, age, gender, province, civil_status, password=None):
         if not email:
             raise ValueError("Users must have an email address.")
         if not first_name:
@@ -28,8 +28,8 @@ class UserManager(BaseUserManager):
             gender = gender,
             province = province,
             civil_status = civil_status,
-            profile_pic = profile_pic,
-            id_pic = id_pic,
+            # profile_pic = profile_pic,
+            # id_pic = id_pic,
         )
         user.set_password(password)
         user.save(using=self.db)
@@ -61,14 +61,14 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     GENDER_CHOICES = (
-        ('F', 'Female'),
-        ('M', 'Male'),
+        ('FEMALE', 'Female'),
+        ('MALE', 'Male'),
     )
     CIVIL_STATUS = (       
-        ('CIVIL_MARRIED', 'Married'),
-        ('CIVIL_SINGLE', 'Single'),
-        ('CIVIL_DIVORCED', 'Divorced'),
-        ('CIVIL_WIDOWED', 'Widowed'),
+        ('MARRIED', 'Married'),
+        ('SINGLE', 'Single'),
+        ('DIVORCED', 'Divorced'),
+        ('WIDOWED', 'Widowed'),
     )
     
     PROVINCE_CHOICES = (
@@ -178,11 +178,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     resident_number         = models.CharField(max_length=100, blank=False, null=True)
     date_of_birth           = models.DateField(blank=False, null = True, )
     age                     = models.SmallIntegerField(null=True, validators=[validate_num])
-    gender                  = models.CharField(max_length=1, choices=GENDER_CHOICES, null = True)
+    gender                  = models.CharField(max_length=10, choices=GENDER_CHOICES, null = True)
     province                = models.CharField(max_length=50, blank=False,null = True, choices=PROVINCE_CHOICES)
     civil_status            = models.CharField(max_length=50, blank=False, null = True, choices=CIVIL_STATUS)
-    profile_pic             = models.ImageField(null=True, blank=True, upload_to="profilepic/%Y/%m/%D/")
-    id_pic                  = models.ImageField(null=True, blank=True, upload_to="id_pic/%Y/%m/%D/")
+    # profile_pic             = models.ImageField(null=True, blank=True, upload_to="profilepic/%Y/%m/%D/")
+    # id_pic                  = models.ImageField(null=True, blank=True, upload_to="id_pic/%Y/%m/%D/")
 
     objects = UserManager()
 

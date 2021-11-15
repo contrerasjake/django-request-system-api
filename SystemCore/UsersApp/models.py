@@ -49,8 +49,8 @@ class UserManager(BaseUserManager):
             gender = None,
             province = None,
             civil_status = None,
-            profile_pic = None,
-            id_pic = None,
+            # profile_pic = None,
+            # id_pic = None,
             password=password,
         )
         user.is_admin = True
@@ -179,7 +179,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_of_birth           = models.DateField(blank=False, null = True, )
     age                     = models.SmallIntegerField(null=True, validators=[validate_num])
     gender                  = models.CharField(max_length=10, choices=GENDER_CHOICES, null = True)
-    province                = models.CharField(max_length=50, blank=False,null = True, choices=PROVINCE_CHOICES)
+    province                = models.CharField(max_length=50, blank=False,null = True)
     civil_status            = models.CharField(max_length=50, blank=False, null = True, choices=CIVIL_STATUS)
     # profile_pic             = models.ImageField(null=True, blank=True, upload_to="profilepic/%Y/%m/%D/")
     # id_pic                  = models.ImageField(null=True, blank=True, upload_to="id_pic/%Y/%m/%D/")

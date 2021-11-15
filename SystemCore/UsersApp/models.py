@@ -1,32 +1,74 @@
+from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from datetime import date
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.conf import settings
 
-class User(AbstractUser):
-    username = models.CharField(blank=True, null=True, max_length=50)
-    email = models.EmailField(_('email address'), unique=True)
+class UserManager(BaseUserManager):
+    def create_user(self, email, first_name, middle_name, last_name, address, mobile_number, resident_number, date_of_birth, age, gender, province, civil_status, password=None):
+        if not email:
+            raise ValueError("Users must have an email address.")
+        if not first_name:
+            raise ValueError("User must have a last name.")
+        if not last_name:
+            raise ValueError("User must have a last name.")
+        user = self.model(
+            email = self.normalize_email(email),
+            first_name = first_name,
+            last_name = last_name,
+            middle_name = middle_name,
+            address = address,
+            mobile_number = mobile_number,
+            resident_number = resident_number,
+            date_of_birth = date_of_birth,
+            age = age,
+            gender = gender,
+            province = province,
+            civil_status = civil_status,
+            # profile_pic = profile_pic,
+            # id_pic = id_pic,
+        )
+        user.set_password(password)
+        user.save(using=self.db)
+        return user
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+    def create_superuser(self, email, first_name, last_name, password):
+        user = self.create_user(
+            email = self.normalize_email(email),
+            first_name = first_name,
+            middle_name = '',
+            last_name = last_name,
+            address = '',
+            mobile_number = None,
+            resident_number = None,
+            date_of_birth = None,
+            age = None,
+            gender = None,
+            province = None,
+            civil_status = None,
+            profile_pic = None,
+            id_pic = None,
+            password=password,
+        )
+        user.is_admin = True
+        user.is_staff = True
+        user.is_superuser = True
+        user.save(using=self.db)
+        return user
 
-    def __str__(self):
-        return "{}".format(self.email)
-# Create your models here.
-class UserInformation(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, related_name='profile')
+class User(AbstractBaseUser, PermissionsMixin):
     GENDER_CHOICES = (
-        ('F', 'Female'),
-        ('M', 'Male'),
+        ('FEMALE', 'Female'),
+        ('MALE', 'Male'),
     )
     CIVIL_STATUS = (       
-        ('CIVIL_MARRIED', 'Married'),
-        ('CIVIL_SINGLE', 'Single'),
-        ('CIVIL_DIVORCED', 'Divorced'),
-        ('CIVIL_WIDOWED', 'Widowed'),
+        ('MARRIED', 'Married'),
+        ('SINGLE', 'Single'),
+        ('DIVORCED', 'Divorced'),
+        ('WIDOWED', 'Widowed'),
     )
     
     PROVINCE_CHOICES = (
@@ -121,26 +163,37 @@ class UserInformation(models.Model):
                 _('%(value)s is not a valid number'),
                 params={'value': value},
             )
-    # UserName = models.CharField(max_length=100, blank=False, default='')
-    # FirstName = models.CharField(max_length=100, blank=False)
-    # LastName = models.CharField(max_length=100, blank=False)
-    MiddleName = models.CharField(max_length=100, blank=False)
-    Address = models.CharField(max_length=100, blank=False)
-    # Email = models.EmailField(null=True, blank=True, max_length=254)
-    MobileNumber = PhoneNumberField(null=False, blank=False, unique=True)
-    date_created = models.DateField(auto_now_add=True)
-    resident_number=models.CharField(max_length=100, blank=False, null=True)
-    date_of_birth = models.DateField(blank=False, null = True, )
-    age = models.SmallIntegerField(null=True, validators=[validate_num])
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null = True)
-    province = models.CharField(max_length=50, blank=False,null = True, choices=PROVINCE_CHOICES)
-    civil_status = models.CharField(max_length=50, blank=False, null = True, choices=CIVIL_STATUS)
-    profile_pic = models.ImageField(null=True, blank=True, upload_to="profilepic/%Y/%m/%D/")
-    id_pic = models.ImageField(null=True, blank=True, upload_to="id_pic/%Y/%m/%D/")
+    email                   = models.EmailField(verbose_name="email", max_length=60, unique=True)
+    date_joined             = models.DateTimeField(verbose_name="date joined", auto_now_add=True)
+    last_login              = models.DateTimeField(verbose_name="last login", auto_now=True)
+    is_admin                = models.BooleanField(default=False)
+    is_active               = models.BooleanField(default=True)
+    is_staff                = models.BooleanField(default=False)
+    is_superuser            = models.BooleanField(default=False)
+    first_name              = models.CharField(max_length=100, blank=False)
+    middle_name              = models.CharField(max_length=100, blank=True)
+    last_name                = models.CharField(max_length=100, blank=False)
+    address                 = models.CharField(max_length=100, blank=False)
+    mobile_number            = PhoneNumberField(null=True, blank=False, unique=True)
+    resident_number         = models.CharField(max_length=100, blank=False, null=True)
+    date_of_birth           = models.DateField(blank=False, null = True, )
+    age                     = models.SmallIntegerField(null=True, validators=[validate_num])
+    gender                  = models.CharField(max_length=10, choices=GENDER_CHOICES, null = True)
+    province                = models.CharField(max_length=50, blank=False,null = True, choices=PROVINCE_CHOICES)
+    civil_status            = models.CharField(max_length=50, blank=False, null = True, choices=CIVIL_STATUS)
+    # profile_pic             = models.ImageField(null=True, blank=True, upload_to="profilepic/%Y/%m/%D/")
+    # id_pic                  = models.ImageField(null=True, blank=True, upload_to="id_pic/%Y/%m/%D/")
+
+    objects = UserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['first_name', 'last_name']
 
     def __str__(self):
         return '{}'.format(self.resident_number)
 
-    
+    def has_perm(self, perm, obj=None):
+        return self.is_admin
 
-    
+    def has_module_perms(self, app_label):
+        return True

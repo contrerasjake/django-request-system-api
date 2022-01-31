@@ -3,10 +3,12 @@ from django.shortcuts import render
 from django.contrib import auth
 from django.conf import settings
 from rest_framework import viewsets, generics, permissions, status
+from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from .serializers import UserInformationSerializer, UserSerializer, LogoutSerializer, LoginSerializer
 from .permissions import IsLoggedInUserOrAdmin, IsAdminUser
+from rest_framework.permissions import IsAuthenticated
 from .models import User
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.permissions import AllowAny
@@ -40,3 +42,10 @@ class LogoutAPIView(generics.GenericAPIView):
 
 class LoginView(TokenObtainPairView):
     serializer_class = LoginSerializer
+
+class UserInformationView(RetrieveUpdateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserInformationSerializer
+    def get(self, request):
+        serializer = self.serializer_class(request.user)
+        return Response(serializer.data, status=status.HTTP_200_OK)

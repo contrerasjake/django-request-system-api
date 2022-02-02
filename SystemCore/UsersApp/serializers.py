@@ -8,7 +8,21 @@ class UserInformationSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = "__all__"
+        fields = ['email',
+                  'first_name', 
+                  'middle_name', 
+                  'last_name', 
+                  'address', 
+                  'mobile_number', 
+                  'resident_number',
+                  'date_of_birth',
+                  'age',
+                  'gender',
+                  'province',
+                  'civil_status',
+                #   'profile_pic',
+                #   'id_pic',
+                 ]
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
@@ -61,7 +75,7 @@ class LoginSerializer(TokenObtainPairSerializer):
 
 class LogoutSerializer(serializers.Serializer):
     refresh = serializers.CharField()
-    default_error_message = {
+    default_error_messages = {
         'bad_token': ('Token is expired or invalid')
     }
     def validate(self, attrs):
@@ -72,4 +86,4 @@ class LogoutSerializer(serializers.Serializer):
         try:
             RefreshToken(self.token).blacklist()
         except TokenError:
-            self.fail('bad_token')
+            raise serializers.ValidationError({'details': ('Token is expired or invalid')})

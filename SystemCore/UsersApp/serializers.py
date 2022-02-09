@@ -1,5 +1,5 @@
 from rest_framework import serializers, status
-from .models import UserInformation, User
+from .models import User
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.response import Response
@@ -7,46 +7,60 @@ from rest_framework.response import Response
 class UserInformationSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = UserInformation
-        fields = ('MiddleName', 'Address', 'MobileNumber', 'resident_number', 'date_of_birth', 'age', 'gender', 'province', 'civil_status', 'profile_pic', 'id_pic')
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    profile = UserInformationSerializer(required=True)
+        model = User
+        fields = ['email',
+                  'first_name', 
+                  'middle_name', 
+                  'last_name', 
+                  'address', 
+                  'mobile_number', 
+                  'resident_number',
+                  'date_of_birth',
+                  'age',
+                  'gender',
+                  'province',
+                  'civil_status',
+                #   'profile_pic',
+                #   'id_pic',
+                 ]
+
+class UserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(
+        max_length=65, min_length=8, write_only=True)
+    email = serializers.EmailField(max_length=255, min_length=4)
+    first_name = serializers.CharField(max_length=255, min_length=2)
+    last_name = serializers.CharField(max_length=255, min_length=2)
 
     class Meta:
+
         model = User
-        fields = ('url', 'email', 'first_name', 'last_name', 'password', 'profile')
-        extra_kwargs = {'password': {'write_only': True}}
+        fields = ['email', 
+                  'first_name', 
+                  'middle_name', 
+                  'last_name', 
+                  'password', 
+                  'address', 
+                  'mobile_number', 
+                  'resident_number',
+                  'date_of_birth',
+                  'age',
+                  'gender',
+                  'province',
+                  'civil_status',
+                #   'profile_pic',
+                #   'id_pic',
+                  ]
+
+    def validate(self, attrs):
+        email = attrs.get('email', '')
+        if User.objects.filter(email=email).exists():
+            raise serializers.ValidationError(
+                {'email': ('Email is already in use')})
+        return super().validate(attrs)
 
     def create(self, validated_data):
-        profile_data = validated_data.pop('profile')
-        password = validated_data.pop('password')
-        user = User(**validated_data)
-        user.set_password(password)
-        user.save()
-        UserInformation.objects.create(user=user, **profile_data)
-        return user
+        return User.objects.create_user(**validated_data)
 
-    def update(self, instance, validated_data):
-        profile_data = validated_data.pop('profile')
-        profile = instance.profile
-
-        instance.email = validated_data.get('email', instance.email)
-        instance.save()
-
-        profile.MiddleName = profile_data.get('MiddleName', profile.MiddleName)
-        profile.Address = profile_data.get('Address', profile.Address)
-        profile.MobileNumber = profile_data.get('MobileNumber', profile.MobileNumber)
-        profile.resident_number = profile_data.get('resident_number', profile.resident_number)
-        profile.date_of_birth = profile_data.get('date_of_birth', profile.date_of_birth)
-        profile.age = profile_data.get('age', profile.age)
-        profile.gender = profile_data.get('gender', profile.gender)
-        profile.province = profile_data.get('province', profile.province)
-        profile.civil_status = profile_data.get('civil_status', profile.civil_status)
-        profile.profile_pic = profile_data.get('profile_pic', profile.profile_pic)
-        profile.id_pic = profile_data.get('id_pic', profile.id_pic)
-        profile.save()
-
-        return instance
 
 class LoginSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -61,7 +75,7 @@ class LoginSerializer(TokenObtainPairSerializer):
 
 class LogoutSerializer(serializers.Serializer):
     refresh = serializers.CharField()
-    default_error_message = {
+    default_error_messages = {
         'bad_token': ('Token is expired or invalid')
     }
     def validate(self, attrs):
@@ -72,4 +86,4 @@ class LogoutSerializer(serializers.Serializer):
         try:
             RefreshToken(self.token).blacklist()
         except TokenError:
-            self.fail('bad_token')
+            raise serializers.ValidationError({'details': ('Token is expired or invalid')})

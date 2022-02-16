@@ -175,7 +175,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name                = models.CharField(max_length=100, blank=False)
     address                 = models.CharField(max_length=100, blank=False)
     mobile_number            = PhoneNumberField(null=True, blank=False, unique=True)
-    resident_number         = models.CharField(max_length=100, blank=False, null=True)
+    resident_number         = models.CharField(max_length=100, blank=False, null=True, unique=True)
     date_of_birth           = models.DateField(blank=False, null = True, )
     age                     = models.SmallIntegerField(null=True, validators=[validate_num])
     gender                  = models.CharField(max_length=10, choices=GENDER_CHOICES, null = True)

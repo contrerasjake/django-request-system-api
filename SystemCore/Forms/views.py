@@ -48,9 +48,11 @@ class CedulaList(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = CedulaSerializer
     queryset = Cedula.objects.all()
+    
+    
 
 class CedulaView(RetrieveUpdateDestroyAPIView):
-    
+    permission_classes = [IsAuthenticated]
     serializer_class = CedulaSerializer
     queryset = Cedula.objects.all()
     

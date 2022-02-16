@@ -9,7 +9,7 @@ from django.utils.translation import gettext_lazy as _
 
 class Cedula(models.Model):
     
-    resident_number = models.ForeignKey(User, on_delete=models.CASCADE)
+    resident_number = models.ForeignKey(User, to_field="resident_number", on_delete=models.CASCADE)
     request_number = models.CharField(max_length = 100, blank=False,unique=True)
     birth_place = models.CharField(max_length = 100, blank=False)
     profession = models.CharField(max_length = 100, null=True, blank=True)
@@ -19,14 +19,14 @@ class Cedula(models.Model):
 
 class BuildingClearance(models.Model):
     
-    resident_number = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    resident_number = models.ForeignKey(to=User, to_field="resident_number", on_delete=models.CASCADE)
     request_number = models.CharField(max_length = 100, blank=False,unique=True)
     maintenance_type = models.CharField(max_length=100, blank=False)
     approval = models.BooleanField(default=False)
 
 class ConstituentID(models.Model):
     
-    resident_number = models.ForeignKey(to=User, on_delete=models.CASCADE,)
+    resident_number = models.ForeignKey(to=User, to_field="resident_number", on_delete=models.CASCADE,)
     request_number = models.CharField(max_length = 100, blank=False,unique=True)
     id_number = models.PositiveIntegerField(default=0, blank=False, unique=True)
     date_received = models.DateField(blank=False)
@@ -37,7 +37,7 @@ class ConstituentID(models.Model):
 
 class Residency(models.Model):
 
-    resident_number = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    resident_number = models.ForeignKey(to=User, to_field="resident_number", on_delete=models.CASCADE)
     request_number = models.CharField(max_length = 100, blank=False,unique=True)
     approval = models.BooleanField(default=False)
 
@@ -50,7 +50,7 @@ class BarangayClearance(models.Model):
         (OTHERS, 'Others'),
     )
 
-    resident_number = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    resident_number = models.ForeignKey(to=User, to_field="resident_number", on_delete=models.CASCADE)
     request_number = models.CharField(max_length = 100, blank=False,unique=True)
     purpose = models.CharField(max_length=10, blank=False, null = True, choices=PURPOSE)
     has_payment = models.BooleanField(default=False)
@@ -61,13 +61,13 @@ class BarangayClearance(models.Model):
 
 class Comelec(models.Model):
 
-    resident_number = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    resident_number = models.ForeignKey(to=User, to_field="resident_number", on_delete=models.CASCADE)
     request_number = models.CharField(max_length = 100, blank=False,unique=True)
     approval = models.BooleanField(default=False)
 
 class BusinessClosure(models.Model):
 
-    resident_number = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    resident_number = models.ForeignKey(to=User, to_field="resident_number", on_delete=models.CASCADE)
     request_number = models.CharField(max_length = 100, blank=False,unique=True)
     business_name = models.CharField(max_length=100, blank=False)
     business_owner = models.CharField(max_length=100, blank=False)
@@ -78,7 +78,7 @@ class BusinessClosure(models.Model):
 
 class BailBond(models.Model):
 
-    resident_number = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    resident_number = models.ForeignKey(to=User, to_field="resident_number", on_delete=models.CASCADE)
     request_number = models.CharField(max_length = 100, blank=False,unique=True)
     case_number = models.PositiveIntegerField(default=0, unique=True)
     is_paid = models.BooleanField(default=False)
@@ -87,7 +87,7 @@ class BailBond(models.Model):
 
 class Guardianship(models.Model):
 
-    resident_number = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    resident_number = models.ForeignKey(to=User, to_field="resident_number", on_delete=models.CASCADE)
     request_number = models.CharField(max_length = 100, blank=False,unique=True)
     guardian_name = models.CharField(max_length = 100, blank=False)
     approval = models.BooleanField(default=False)
@@ -108,7 +108,7 @@ class IndigencyBurial(models.Model):
         (OTHERS, 'Others'),
     )
 
-    resident_number = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    resident_number = models.ForeignKey(to=User, to_field="resident_number", on_delete=models.CASCADE)
     request_number = models.CharField(max_length = 100, blank=False,unique=True)
     deceased_relationship = models.CharField(max_length = 100, blank=False, choices=RELATIONSHIP)
     deceased_name = models.CharField(max_length = 100, blank=False)
@@ -130,7 +130,7 @@ class IndigencyClearance(models.Model):
         (OTHERS, 'Others'),
     )
 
-    resident_number = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    resident_number = models.ForeignKey(to=User, to_field="resident_number", on_delete=models.CASCADE)
     request_number = models.CharField(max_length = 100, blank=False,unique=True)
     patient_relationship = models.CharField(max_length = 100, blank=False, choices=RELATIONSHIP)
     patient_name = models.CharField(max_length = 100, blank=False)
@@ -140,7 +140,7 @@ class IndigencyClearance(models.Model):
 
 class Voucher(models.Model):
 
-    resident_number = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    resident_number = models.ForeignKey(to=User, to_field="resident_number", on_delete=models.CASCADE)
     request_number = models.CharField(max_length = 100, blank=False,unique=True)
     student_name = models.CharField(max_length = 100, blank=False)
     parent_name = models.CharField(max_length = 100, blank=False)
@@ -150,7 +150,7 @@ class Voucher(models.Model):
 
 
 class BusinessClearance(models.Model):
-    resident_number = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    resident_number = models.ForeignKey(to=User, to_field="resident_number", on_delete=models.CASCADE)
     request_number = models.CharField(max_length = 100, blank=False,unique=True)
     business_name = models.CharField(max_length=100, blank=False)
     business_owner = models.CharField(max_length=100, blank=False)
@@ -160,7 +160,7 @@ class BusinessClearance(models.Model):
     approval = models.BooleanField(default=False)
 
 class Immunization(models.Model):
-    resident_number = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    resident_number = models.ForeignKey(to=User, to_field="resident_number", on_delete=models.CASCADE)
     request_number = models.CharField(max_length = 100, blank=False,unique=True)
     mother_name = models.CharField(max_length=100, blank=False)
     father_name = models.CharField(max_length=100, blank=False)
@@ -169,12 +169,12 @@ class Immunization(models.Model):
     approval = models.BooleanField(default=False)
 
 class DentalService(models.Model):
-    resident_number = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    resident_number = models.ForeignKey(to=User, to_field="resident_number", on_delete=models.CASCADE)
     request_number = models.CharField(max_length = 100, blank=False,unique=True)
     approval = models.BooleanField(default=False)
 
 class MaternalCare(models.Model):
-    resident_number = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    resident_number = models.ForeignKey(to=User, to_field="resident_number", on_delete=models.CASCADE)
     request_number = models.CharField(max_length = 100, blank=False,unique=True)
     child_name = models.CharField(max_length=100, blank=False)
     date_of_birth = models.DateField(blank=False)

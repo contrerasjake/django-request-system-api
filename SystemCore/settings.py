@@ -30,12 +30,12 @@ DEBUG = True
 
 
 # ALLOWED_HOSTS=['http://localhost:3000']
-ALLOWED_HOSTS=['*']
+ALLOWED_HOSTS=['.herokuapp.com', '127.0.0.1:8000']
 INTERNAL_IPS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ORIGIN_WHITELIST = (
-#        'http://localhost:3000',
-# )
+CORS_ORIGIN_WHITELIST = (
+       'http://127.0.0.1:3000',
+)
 
 
 # Application definition
@@ -180,7 +180,8 @@ JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

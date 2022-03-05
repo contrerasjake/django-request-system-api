@@ -30,7 +30,7 @@ DEBUG = True
 
 
 # ALLOWED_HOSTS=['http://localhost:3000']
-ALLOWED_HOSTS=['.herokuapp.com', '127.0.0.1:8000']
+ALLOWED_HOSTS=['*']
 INTERNAL_IPS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 # CORS_ORIGIN_WHITELIST = (

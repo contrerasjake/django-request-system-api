@@ -1,5 +1,5 @@
 from django.urls import path
-from django.conf.urls import url, include
+from django.conf.urls import include
 from rest_framework import routers
 from .views import LogoutAPIView, LoginView, RegisterView, UserInformationView
 from rest_framework_simplejwt import views as jwt_views

@@ -18,15 +18,15 @@ from django.urls import path
 from django.conf import settings
 from django.urls.conf import re_path
 from django.views.static import serve
-from django.conf.urls import include, url
+from django.conf.urls import include
 from django.conf.urls.static import static
 
 
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^api/users/', include('UsersApp.urls')),
-    url(r'^api/forms/', include('Forms.urls')),
+    re_path(r'^admin/', admin.site.urls),
+    re_path(r'^api/users/', include('UsersApp.urls')),
+    re_path(r'^api/forms/', include('Forms.urls')),
 ]
 
 if settings.DEBUG:

@@ -26,11 +26,11 @@ MEDIA_URL = "/media/"
 SECRET_KEY = 'django-insecure-terho=s!)y(rg!*-%xb4!gsbd+m7873ma32@nzeusiwm-u_w#5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 # ALLOWED_HOSTS=['http://localhost:3000']
-ALLOWED_HOSTS=['*']
+ALLOWED_HOSTS=['.herokuapp.com', '127.0.0.1:8000']
 INTERNAL_IPS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 # CORS_ORIGIN_WHITELIST = (
@@ -180,6 +180,8 @@ JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -193,7 +195,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        #'rest_framework.authentication.SessionAuthentication', #only enable if testing
+        # 'rest_framework.authentication.SessionAuthentication', #only enable if testing
         # 'rest_framework.authentication.BasicAuthentication',
     ),
 }

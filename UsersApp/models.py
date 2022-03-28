@@ -1,3 +1,4 @@
+from email.policy import default
 from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
@@ -6,9 +7,21 @@ from django.utils.translation import gettext_lazy as _
 from datetime import date
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.conf import settings
+import uuid
+import os
+
+def upload_profilepic(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = "%s.%s" % (str(uuid.uuid4()), ext)
+    return os.path.join('uploads/profile_pic', filename)
+
+def upload_idpic(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = "%s.%s" % (str(uuid.uuid4()), ext)
+    return os.path.join('uploads/id_pic', filename)
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, first_name, middle_name, last_name, address, mobile_number, resident_number, date_of_birth, age, gender, province, civil_status, password=None):
+    def create_user(self, email, first_name, middle_name, last_name, address, mobile_number, resident_number, date_of_birth, age, gender, province, civil_status, profile_pic, id_pic, password=None):
         if not email:
             raise ValueError("Users must have an email address.")
         if not first_name:
@@ -28,8 +41,8 @@ class UserManager(BaseUserManager):
             gender = gender,
             province = province,
             civil_status = civil_status,
-            # profile_pic = profile_pic,
-            # id_pic = id_pic,
+            profile_pic = profile_pic,
+            id_pic = id_pic,
         )
         user.set_password(password)
         user.save(using=self.db)
@@ -49,8 +62,8 @@ class UserManager(BaseUserManager):
             gender = None,
             province = None,
             civil_status = None,
-            # profile_pic = None,
-            # id_pic = None,
+            profile_pic = None,
+            id_pic = None,
             password=password,
         )
         user.is_admin = True
@@ -181,8 +194,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     gender                  = models.CharField(max_length=10, choices=GENDER_CHOICES, null = True)
     province                = models.CharField(max_length=50, blank=False,null = True)
     civil_status            = models.CharField(max_length=50, blank=False, null = True, choices=CIVIL_STATUS)
-    # profile_pic             = models.ImageField(null=True, blank=True, upload_to="profilepic/%Y/%m/%D/")
-    # id_pic                  = models.ImageField(null=True, blank=True, upload_to="id_pic/%Y/%m/%D/")
+    profile_pic             = models.ImageField(null=True, blank=True, upload_to=upload_profilepic)
+    id_pic                  = models.ImageField(null=True, blank=True, upload_to=upload_idpic)
 
     objects = UserManager()
 

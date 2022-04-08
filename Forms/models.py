@@ -9,11 +9,11 @@ from django.utils.translation import gettext_lazy as _
 
 class Cedula(models.Model):
     
-    resident_number = models.ForeignKey(User, to_field="resident_number", on_delete=models.CASCADE)
+    resident_number = models.ForeignKey(to=User, to_field="resident_number", on_delete=models.CASCADE)
     request_number = models.AutoField(primary_key=True)
     birth_place = models.CharField(max_length = 100, blank=False)
     profession = models.CharField(max_length = 100, null=True, blank=True)
-    monthly_income = models.PositiveIntegerField(default=0, blank=True)
+    monthly_income = models.CharField(max_length = 100, null=True, blank=True)
     is_paid = models.BooleanField(default=False)
     approval = models.BooleanField(default=False)
 
@@ -28,7 +28,7 @@ class ConstituentID(models.Model):
     
     resident_number = models.ForeignKey(to=User, to_field="resident_number", on_delete=models.CASCADE,)
     request_number = models.AutoField(primary_key=True)
-    id_number = models.PositiveIntegerField(default=0, blank=False, unique=True)
+    id_number = models.CharField(max_length = 100, null=True, blank=True)
     date_received = models.DateField(blank=False)
     signature = models.ImageField(blank=False, null=True, upload_to="signature/%Y/%m/%D/")
     picture = models.ImageField(blank=False, null=True, upload_to="pic/%Y/%m/%D/")
@@ -80,7 +80,7 @@ class BailBond(models.Model):
 
     resident_number = models.ForeignKey(to=User, to_field="resident_number", on_delete=models.CASCADE, default = None)
     request_number = models.AutoField(primary_key=True)
-    case_number = models.PositiveIntegerField(default=0, unique=True)
+    models.CharField(max_length = 100, null=True, blank=True)
     is_paid = models.BooleanField(default=False)
     approval = models.BooleanField(default=False)
 
@@ -116,23 +116,24 @@ class IndigencyBurial(models.Model):
     approval = models.BooleanField(default=False)
 
 class IndigencyClearance(models.Model):
-    R_FATHER = 'Father'
-    R_MOTHER = 'Mother'
-    R_SON = 'Son'
-    R_DAUGHTER = 'Daughter'
-    OTHERS = 'Others'
+    # R_FATHER = 'Father'
+    # R_MOTHER = 'Mother'
+    # R_SON = 'Son'
+    # R_DAUGHTER = 'Daughter'
+    # OTHERS = 'Others'
 
-    RELATIONSHIP = (
-        (R_FATHER, 'Father'),
-        (R_MOTHER, 'Mother'),
-        (R_SON, 'Son'),
-        (R_DAUGHTER, 'Daughter'),
-        (OTHERS, 'Others'),
-    )
+    # RELATIONSHIP = (
+    #     (R_FATHER, 'Father'),
+    #     (R_MOTHER, 'Mother'),
+    #     (R_SON, 'Son'),
+    #     (R_DAUGHTER, 'Daughter'),
+    #     (OTHERS, 'Others'),
+    # )
 
     resident_number = models.ForeignKey(to=User, to_field="resident_number", on_delete=models.CASCADE)
     request_number = models.AutoField(primary_key=True)
-    patient_relationship = models.CharField(max_length = 100, blank=False, choices=RELATIONSHIP)
+    # patient_relationship = models.CharField(max_length = 100, blank=False, choices=RELATIONSHIP)
+    patient_relationship = models.CharField(max_length = 100, blank=False)
     patient_name = models.CharField(max_length = 100, blank=False)
     purpose = models.CharField(max_length = 100, blank=False)
     passed_onto_whom = models.CharField(max_length = 100, blank=False)
@@ -145,7 +146,7 @@ class Voucher(models.Model):
     student_name = models.CharField(max_length = 100, blank=False)
     parent_name = models.CharField(max_length = 100, blank=False)
     school = models.CharField(max_length = 100, blank=False)
-    grade = models.PositiveIntegerField(default=0, blank=False)
+    grade = models.CharField(max_length = 100, blank=False)
     approval = models.BooleanField(default=False)
 
 
@@ -164,8 +165,8 @@ class Immunization(models.Model):
     request_number = models.AutoField(primary_key=True)
     mother_name = models.CharField(max_length=100, blank=False)
     father_name = models.CharField(max_length=100, blank=False)
-    birth_height = models.PositiveIntegerField(default=0, blank=False)
-    birth_weight = models.PositiveIntegerField(default=0, blank=False)
+    birth_height = models.FloatField(default=0, blank=False)
+    models.CharField(max_length = 100, null=True, blank=True)
     approval = models.BooleanField(default=False)
 
 class DentalService(models.Model):

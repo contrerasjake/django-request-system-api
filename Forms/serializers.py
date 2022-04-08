@@ -9,100 +9,100 @@ class CedulaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model=Cedula
-        exclude = ['resident_number']
+        fields=('__all__')
                 
 class BuildingClearanceSerializer(ModelSerializer):
 
     class Meta:
         model=BuildingClearance
-        exclude = ['resident_number']
+        fields=('__all__')
 
 class ConstituentIDSerializer(ModelSerializer):
     
     class Meta:
         model=ConstituentID
-        exclude = ['resident_number']
+        fields=('__all__')
 
 class ResidencySerializer(ModelSerializer):
 
     class Meta:
         model=Residency
-        exclude = ['resident_number']
+        fields=('__all__')
 
 class BarangayClearanceSerializer(ModelSerializer):
 
     class Meta:
         model=BarangayClearance
-        exclude = ['resident_number']
+        fields=('__all__')
 
 class ComelecSerializer(ModelSerializer):
 
     class Meta:
         model=Comelec
-        exclude = ['resident_number']
+        fields=('__all__')
 
 
 class BusinessClosureSerializer(ModelSerializer):
 
     class Meta:
         model=BusinessClosure
-        exclude = ['resident_number']
+        fields=('__all__')
 
 class BailBondSerializer(ModelSerializer):
 
     class Meta:
         model=BailBond
-        exclude = ['resident_number']
+        fields=('__all__')
 
 class GuardianshipSerializer(ModelSerializer):
 
     class Meta:
         model=Guardianship
-        exclude = ['resident_number']
+        fields=('__all__')
         
 
 class IndigencyBurialSerializer(ModelSerializer):
 
     class Meta:
         model=IndigencyBurial
-        exclude = ['resident_number']
+        fields=('__all__')
 
 class IndigencyClearanceSerializer(ModelSerializer):
 
     class Meta:
         model=IndigencyClearance
-        exclude = ['resident_number']
+        fields=('__all__')
 
 class VoucherSerializer(ModelSerializer):
 
     class Meta:
         model=Voucher
-        exclude = ['resident_number']
+        fields=('__all__')
 
 
 class BusinessClearanceSerializer(ModelSerializer):
 
     class Meta:
         model=BusinessClearance
-        exclude = ['resident_number']
+        fields=('__all__')
 
 class ImmunizationSerializer(ModelSerializer):
 
     class Meta:
         model=Immunization
-        exclude = ['resident_number']
+        fields=('__all__')
 
 class DentalServiceSerializer(ModelSerializer):
 
     class Meta:
         model=DentalService
-        exclude = ['resident_number']
+        fields=('__all__')
 
 class MaternalCareSerializer(ModelSerializer):
 
     class Meta:
         model=MaternalCare
-        exclude = ['resident_number']
+        fields=('__all__')
 
 
 

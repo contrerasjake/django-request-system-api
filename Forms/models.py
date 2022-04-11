@@ -80,7 +80,7 @@ class BailBond(models.Model):
 
     resident_number = models.ForeignKey(to=User, to_field="resident_number", on_delete=models.CASCADE, default = None)
     request_number = models.AutoField(primary_key=True)
-    models.CharField(max_length = 100, null=True, blank=True)
+    case_number = models.CharField(max_length = 100, null=True, blank=True)
     is_paid = models.BooleanField(default=False)
     approval = models.BooleanField(default=False)
 

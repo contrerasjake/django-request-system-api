@@ -1,18 +1,20 @@
-import email
+from django.http import HttpResponse
 from django.shortcuts import render
+from rest_framework.decorators import api_view
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.permissions import IsAuthenticated
 
 from .models import *
 from .serializers import *
 from .mailer import Mailer
 
-from UsersApp.permissions import IsLoggedInUserOrAdmin, IsAdminUser
-from rest_framework.permissions import IsAuthenticated
-
 #notification
+@api_view(['GET'])
 def email_notification(request):
-    MAIL = request.user.email
-    Mailer().send(MAIL)
+    if request.method == 'GET':    
+        MAIL = request.user.email
+        Mailer().send(MAIL)
+        return HttpResponse ('email success', status=200)
 
 #Cedula
 class CedulaList(ListCreateAPIView):
@@ -20,10 +22,6 @@ class CedulaList(ListCreateAPIView):
     serializer_class = CedulaSerializer
     queryset = Cedula.objects.all()
 
-    def post(self, request, *args, **kwargs):
-        email_notification(request)
-        return self.create(request, *args, **kwargs)
-    
 
 class CedulaView(RetrieveUpdateDestroyAPIView):
 
@@ -37,9 +35,6 @@ class BuildingClearanceList(ListCreateAPIView):
     serializer_class = BuildingClearanceSerializer
     queryset = BuildingClearance.objects.all()
 
-    def post(self, request, *args, **kwargs):
-        email_notification(request)
-        return self.create(request, *args, **kwargs)
     
 class BuildingClearanceView(RetrieveUpdateDestroyAPIView):
     
@@ -54,9 +49,6 @@ class ConstituentIDList(ListCreateAPIView):
     serializer_class = ConstituentIDSerializer
     queryset = ConstituentID.objects.all()
 
-    def post(self, request, *args, **kwargs):
-        email_notification(request)
-        return self.create(request, *args, **kwargs)
 
 class ConstituentIDView(RetrieveUpdateDestroyAPIView):
     
@@ -70,9 +62,6 @@ class ResidencyList(ListCreateAPIView):
     serializer_class = ResidencySerializer
     queryset = Residency.objects.all()
 
-    def post(self, request, *args, **kwargs):
-        email_notification(request)
-        return self.create(request, *args, **kwargs)
 
 class ResidencyView(RetrieveUpdateDestroyAPIView):
     
@@ -86,9 +75,6 @@ class BarangayClearanceList(ListCreateAPIView):
     serializer_class = BarangayClearanceSerializer
     queryset = BarangayClearance.objects.all()
 
-    def post(self, request, *args, **kwargs):
-        email_notification(request)
-        return self.create(request, *args, **kwargs)
 
 class BarangayClearanceView(RetrieveUpdateDestroyAPIView):
     
@@ -102,9 +88,6 @@ class ComelecList(ListCreateAPIView):
     serializer_class = ComelecSerializer
     queryset = Comelec.objects.all()
 
-    def post(self, request, *args, **kwargs):
-        email_notification(request)
-        return self.create(request, *args, **kwargs)
 
 class ComelecView(RetrieveUpdateDestroyAPIView):
     
@@ -118,9 +101,6 @@ class BusinessClosureList(ListCreateAPIView):
     serializer_class = BusinessClosureSerializer
     queryset = BusinessClosure.objects.all()
 
-    def post(self, request, *args, **kwargs):
-        email_notification(request)
-        return self.create(request, *args, **kwargs)
 
 class BusinessClosureView(RetrieveUpdateDestroyAPIView):
     
@@ -134,9 +114,6 @@ class BailBondList(ListCreateAPIView):
     serializer_class = BailBondSerializer
     queryset = BailBond.objects.all()
 
-    def post(self, request, *args, **kwargs):
-        email_notification(request)
-        return self.create(request, *args, **kwargs)
 
 class BailBondView(RetrieveUpdateDestroyAPIView):
     
@@ -150,9 +127,6 @@ class GuardianshipList(ListCreateAPIView):
     serializer_class = GuardianshipSerializer
     queryset = Guardianship.objects.all()
 
-    def post(self, request, *args, **kwargs):
-        email_notification(request)
-        return self.create(request, *args, **kwargs)
 
 class GuardianshipView(RetrieveUpdateDestroyAPIView):
     
@@ -166,9 +140,6 @@ class IndigencyBurialList(ListCreateAPIView):
     serializer_class = IndigencyBurialSerializer
     queryset = IndigencyBurial.objects.all()
 
-    def post(self, request, *args, **kwargs):
-        email_notification(request)
-        return self.create(request, *args, **kwargs)
 
 class IndigencyBurialView(RetrieveUpdateDestroyAPIView):
     
@@ -182,9 +153,6 @@ class IndigencyClearanceList(ListCreateAPIView):
     serializer_class = IndigencyClearanceSerializer
     queryset = IndigencyClearance.objects.all()
 
-    def post(self, request, *args, **kwargs):
-        email_notification(request)
-        return self.create(request, *args, **kwargs)
 
 class IndigencyClearanceView(RetrieveUpdateDestroyAPIView):
     
@@ -198,9 +166,6 @@ class VoucherList(ListCreateAPIView):
     serializer_class = VoucherSerializer
     queryset = Voucher.objects.all()
 
-    def post(self, request, *args, **kwargs):
-        email_notification(request)
-        return self.create(request, *args, **kwargs)
 
 class VoucherView(RetrieveUpdateDestroyAPIView):
     
@@ -214,9 +179,6 @@ class BusinessClearanceList(ListCreateAPIView):
     serializer_class = BusinessClearanceSerializer
     queryset = BusinessClearance.objects.all()
 
-    def post(self, request, *args, **kwargs):
-        email_notification(request)
-        return self.create(request, *args, **kwargs)
 
 class BusinessClearanceView(RetrieveUpdateDestroyAPIView):
     
@@ -230,9 +192,6 @@ class ImmunizationList(ListCreateAPIView):
     serializer_class = ImmunizationSerializer
     queryset = Immunization.objects.all()
 
-    def post(self, request, *args, **kwargs):
-        email_notification(request)
-        return self.create(request, *args, **kwargs)
 
 class ImmunizationView(RetrieveUpdateDestroyAPIView):
     
@@ -246,9 +205,6 @@ class DentalServiceList(ListCreateAPIView):
     serializer_class = DentalServiceSerializer
     queryset = DentalService.objects.all()
 
-    def post(self, request, *args, **kwargs):
-        email_notification(request)
-        return self.create(request, *args, **kwargs)
 
 class DentalServiceView(RetrieveUpdateDestroyAPIView):
     
@@ -263,11 +219,9 @@ class MaternalCareList(ListCreateAPIView):
     serializer_class = MaternalCareSerializer
     queryset = MaternalCare.objects.all()
 
-    def post(self, request, *args, **kwargs):
-        email_notification(request)
-        return self.create(request, *args, **kwargs)
 
 class MaternalCareView(RetrieveUpdateDestroyAPIView):
     
     serializer_class = MaternalCareSerializer
     queryset = MaternalCare.objects.all()
+

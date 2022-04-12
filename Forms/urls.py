@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import *
+from Forms import views
 
 urlpatterns = [
     path('cedula/', CedulaList.as_view()),
@@ -34,7 +35,6 @@ urlpatterns = [
     path('dental-service/<int:pk>/', DentalServiceView.as_view()),
     path('maternal-care/', MaternalCareList.as_view()),
     path('maternal-care/<int:pk>/', MaternalCareView.as_view()),
-
-
+    path('email_notification', views.email_notification),
 
 ]

@@ -1,38 +1,7 @@
 from django.urls import path
-from .views import (
-    BuildingClearanceView, 
-    CedulaList, 
-    CedulaView, 
-    BuildingClearanceList,
-    ConstituentIDList,
-    ConstituentIDView,
-    ResidencyList,
-    ResidencyView,
-    BarangayClearanceList,
-    BarangayClearanceView,
-    ComelecList,
-    ComelecView,
-    BusinessClosureList,
-    BusinessClosureView,
-    BailBondList,
-    BailBondView,
-    GuardianshipList,
-    GuardianshipView,
-    IndigencyBurialList,
-    IndigencyBurialView,
-    IndigencyClearanceList,
-    IndigencyClearanceView,
-    VoucherList,
-    VoucherView,
-    BusinessClearanceList,
-    BusinessClearanceView,
-    ImmunizationList,
-    ImmunizationView,
-    DentalServiceList,
-    DentalServiceView,
-    MaternalCareList,
-    MaternalCareView,
-)
+from .views import *
+from Forms import views
+
 urlpatterns = [
     path('cedula/', CedulaList.as_view()),
     path('cedula/<int:pk>/', CedulaView.as_view()),
@@ -66,7 +35,6 @@ urlpatterns = [
     path('dental-service/<int:pk>/', DentalServiceView.as_view()),
     path('maternal-care/', MaternalCareList.as_view()),
     path('maternal-care/<int:pk>/', MaternalCareView.as_view()),
-
-
+    path('email_notification', views.email_notification),
 
 ]

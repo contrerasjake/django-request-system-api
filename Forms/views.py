@@ -1,58 +1,30 @@
+from django.http import HttpResponse
 from django.shortcuts import render
-from rest_framework import serializers
+from rest_framework.decorators import api_view
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework import permissions
-from .models import (
-    Cedula, 
-    BuildingClearance, 
-    ConstituentID,
-    Residency,
-    BarangayClearance,
-    Comelec,
-    BusinessClearance,
-    BailBond,
-    Guardianship,
-    IndigencyBurial,
-    IndigencyClearance,
-    Voucher,
-    BusinessClosure,
-    Immunization,
-    DentalService,
-    MaternalCare
-)
-from .serializers import (
-    CedulaSerializer, 
-    BuildingClearanceSerializer, 
-    ConstituentIDSerializer,
-    ResidencySerializer,
-    BarangayClearanceSerializer,
-    ComelecSerializer,
-    BusinessClosureSerializer,
-    BailBondSerializer,
-    GuardianshipSerializer,
-    IndigencyBurialSerializer,
-    IndigencyClearanceSerializer,
-    VoucherSerializer,
-    BusinessClearanceSerializer,
-    ImmunizationSerializer,
-    DentalServiceSerializer,
-    MaternalCareSerializer
-)
-
-from rest_framework.permissions import AllowAny
-from UsersApp.permissions import IsLoggedInUserOrAdmin, IsAdminUser
 from rest_framework.permissions import IsAuthenticated
+
+from .models import *
+from .serializers import *
+from .mailer import Mailer
+
+#notification
+@api_view(['GET'])
+def email_notification(request):
+    if request.method == 'GET':    
+        MAIL = request.user.email
+        Mailer().send(MAIL)
+        return HttpResponse ('email success', status=200)
 
 #Cedula
 class CedulaList(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = CedulaSerializer
     queryset = Cedula.objects.all()
-    
-    
+
 
 class CedulaView(RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated]
+
     serializer_class = CedulaSerializer
     queryset = Cedula.objects.all()
     
@@ -62,6 +34,7 @@ class BuildingClearanceList(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = BuildingClearanceSerializer
     queryset = BuildingClearance.objects.all()
+
     
 class BuildingClearanceView(RetrieveUpdateDestroyAPIView):
     
@@ -76,6 +49,7 @@ class ConstituentIDList(ListCreateAPIView):
     serializer_class = ConstituentIDSerializer
     queryset = ConstituentID.objects.all()
 
+
 class ConstituentIDView(RetrieveUpdateDestroyAPIView):
     
     serializer_class = ConstituentIDSerializer
@@ -87,6 +61,7 @@ class ResidencyList(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = ResidencySerializer
     queryset = Residency.objects.all()
+
 
 class ResidencyView(RetrieveUpdateDestroyAPIView):
     
@@ -100,6 +75,7 @@ class BarangayClearanceList(ListCreateAPIView):
     serializer_class = BarangayClearanceSerializer
     queryset = BarangayClearance.objects.all()
 
+
 class BarangayClearanceView(RetrieveUpdateDestroyAPIView):
     
     serializer_class = BarangayClearanceSerializer
@@ -111,6 +87,7 @@ class ComelecList(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = ComelecSerializer
     queryset = Comelec.objects.all()
+
 
 class ComelecView(RetrieveUpdateDestroyAPIView):
     
@@ -124,6 +101,7 @@ class BusinessClosureList(ListCreateAPIView):
     serializer_class = BusinessClosureSerializer
     queryset = BusinessClosure.objects.all()
 
+
 class BusinessClosureView(RetrieveUpdateDestroyAPIView):
     
     serializer_class = BusinessClosureSerializer
@@ -135,6 +113,7 @@ class BailBondList(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = BailBondSerializer
     queryset = BailBond.objects.all()
+
 
 class BailBondView(RetrieveUpdateDestroyAPIView):
     
@@ -148,6 +127,7 @@ class GuardianshipList(ListCreateAPIView):
     serializer_class = GuardianshipSerializer
     queryset = Guardianship.objects.all()
 
+
 class GuardianshipView(RetrieveUpdateDestroyAPIView):
     
     serializer_class = GuardianshipSerializer
@@ -159,6 +139,7 @@ class IndigencyBurialList(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = IndigencyBurialSerializer
     queryset = IndigencyBurial.objects.all()
+
 
 class IndigencyBurialView(RetrieveUpdateDestroyAPIView):
     
@@ -172,6 +153,7 @@ class IndigencyClearanceList(ListCreateAPIView):
     serializer_class = IndigencyClearanceSerializer
     queryset = IndigencyClearance.objects.all()
 
+
 class IndigencyClearanceView(RetrieveUpdateDestroyAPIView):
     
     serializer_class = IndigencyClearanceSerializer
@@ -183,6 +165,7 @@ class VoucherList(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = VoucherSerializer
     queryset = Voucher.objects.all()
+
 
 class VoucherView(RetrieveUpdateDestroyAPIView):
     
@@ -196,6 +179,7 @@ class BusinessClearanceList(ListCreateAPIView):
     serializer_class = BusinessClearanceSerializer
     queryset = BusinessClearance.objects.all()
 
+
 class BusinessClearanceView(RetrieveUpdateDestroyAPIView):
     
     serializer_class = BusinessClearanceSerializer
@@ -208,6 +192,7 @@ class ImmunizationList(ListCreateAPIView):
     serializer_class = ImmunizationSerializer
     queryset = Immunization.objects.all()
 
+
 class ImmunizationView(RetrieveUpdateDestroyAPIView):
     
     serializer_class = ImmunizationSerializer
@@ -219,6 +204,7 @@ class DentalServiceList(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = DentalServiceSerializer
     queryset = DentalService.objects.all()
+
 
 class DentalServiceView(RetrieveUpdateDestroyAPIView):
     
@@ -233,12 +219,9 @@ class MaternalCareList(ListCreateAPIView):
     serializer_class = MaternalCareSerializer
     queryset = MaternalCare.objects.all()
 
+
 class MaternalCareView(RetrieveUpdateDestroyAPIView):
     
     serializer_class = MaternalCareSerializer
     queryset = MaternalCare.objects.all()
-
-
-
-
 

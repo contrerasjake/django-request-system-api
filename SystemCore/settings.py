@@ -26,11 +26,12 @@ MEDIA_URL = "/media/"
 SECRET_KEY = 'django-insecure-terho=s!)y(rg!*-%xb4!gsbd+m7873ma32@nzeusiwm-u_w#5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 # ALLOWED_HOSTS=['http://localhost:3000']
-ALLOWED_HOSTS=['*']
+
+ALLOWED_HOSTS=['.herokuapp.com', '127.0.0.1', 'localhost']
 INTERNAL_IPS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 # CORS_ORIGIN_WHITELIST = (
@@ -195,7 +196,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework.authentication.SessionAuthentication', #only enable if testing
+        # 'rest_framework.authentication.SessionAuthentication', #only enable if testing
         # 'rest_framework.authentication.BasicAuthentication',
     ),
 }

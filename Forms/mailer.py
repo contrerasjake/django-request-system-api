@@ -1,7 +1,8 @@
 import smtplib, ssl
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 class Mailer:
-
     """
     This script initiaties the email alert function.
     """
@@ -19,13 +20,20 @@ class Mailer:
         self.server = smtplib.SMTP_SSL('smtp.gmail.com', self.PORT)
 
     def send(self, mail):
+        # Define the HTML document
+        html = open("Forms/html-email/index.html")
+
         self.server = smtplib.SMTP_SSL('smtp.gmail.com', self.PORT)
         self.server.login(self.EMAIL, self.PASS)
-        # message to be sent
-        SUBJECT = 'Request confirmed'
-        TEXT = f'We have received your request. Please wait for 6 to 9 days to finalize your documents.'
-        message = 'Subject: {}\n\n{}'.format(SUBJECT, TEXT)
+
+        email_message = MIMEMultipart()
+        email_message['Subject'] = f'Request confirmed'
+        html_email = MIMEText(html.read(), 'html')
+        # Attach the html doc defined earlier, as a MIMEText html content type to the MIME message
+        email_message.attach(html_email)
+        # Convert it as a string
+        email_string = email_message.as_string()
 
         # sending the mail
-        self.server.sendmail(self.EMAIL, mail, message)
+        self.server.sendmail(self.EMAIL, mail, email_string)
         self.server.quit()

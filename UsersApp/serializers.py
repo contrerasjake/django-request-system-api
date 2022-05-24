@@ -91,8 +91,8 @@ class LogoutSerializer(serializers.Serializer):
 
 class ChangePasswordSerializer(serializers.ModelSerializer):
     # password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
-    password = serializers.CharField(write_only=True, required=True)
-    password2 = serializers.CharField(write_only=True, required=True)
+    password = serializers.CharField(write_only=True, min_length=8, required=True)
+    password2 = serializers.CharField(write_only=True, min_length=8, required=True)
     old_password = serializers.CharField(write_only=True, required=True)
 
     class Meta:
@@ -108,7 +108,7 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
     def validate_old_password(self, value):
         user = self.context['request'].user
         if not user.check_password(value):
-            raise serializers.ValidationError({"old_password": "Old password is not correct"})
+            raise serializers.ValidationError("Old password is not correct")
         return value
 
     def update(self, instance, validated_data):

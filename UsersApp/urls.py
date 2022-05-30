@@ -1,12 +1,14 @@
 from django.urls import path
 from django.conf.urls import include
 from rest_framework import routers
-from .views import LogoutAPIView, LoginView, RegisterView, UserInformationView, ChangePasswordView
+from .views import LogoutAPIView, LoginView, RegisterView, UserInformationView, ChangePasswordView, ResendEmailVerification, CheckAccountStatus, activate_user
 from rest_framework_simplejwt import views as jwt_views
 
 urlpatterns = [
-    # path('login/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('register/', RegisterView.as_view()),
+    path('activate-user/<uidb64>/<token>', activate_user, name='activate'),
+    path('resend-activation/', ResendEmailVerification.as_view()),
+    path('account-status/', CheckAccountStatus.as_view()),
     path('login/', LoginView.as_view()),
     path('logout/', LogoutAPIView.as_view(), name="logout"),
     path('token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),

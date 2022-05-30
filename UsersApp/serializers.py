@@ -62,17 +62,21 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
 
+class AccountStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['email', 'is_admin', 'is_email_verified']
 
 class LoginSerializer(TokenObtainPairSerializer):
-    @classmethod
-    def get_token(cls, user):
-        token = super().get_token(user)
-
-        # Add custom claims
-        token['email'] = user.email
-        # ...
-
-        return token
+    def validate(self, attrs):
+        # The default result (access/refresh tokens)
+        data = super(LoginSerializer, self).validate(attrs)
+        # Custom data you want to include
+        data.update({'user': self.user.email})
+        # and everything else you want to send in the response
+        if(not self.user.is_email_verified):
+            raise serializers.ValidationError({'details': 'Email not verified'})
+        return data
 
 class LogoutSerializer(serializers.Serializer):
     refresh = serializers.CharField()

@@ -73,9 +73,7 @@ class LoginSerializer(TokenObtainPairSerializer):
         data = super(LoginSerializer, self).validate(attrs)
         # Custom data you want to include
         data.update({'user': self.user.email})
-        # and everything else you want to send in the response
-        if(not self.user.is_email_verified):
-            raise serializers.ValidationError({'details': 'Email not verified'})
+        data.update({'status': self.user.is_email_verified})
         return data
 
 class LogoutSerializer(serializers.Serializer):

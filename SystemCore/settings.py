@@ -11,8 +11,14 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 import os
+# https://django-environ.readthedocs.io/en/latest/index.html
+import environ
 from pathlib import Path
 from datetime import timedelta
+
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +29,7 @@ MEDIA_URL = "/media/"
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-terho=s!)y(rg!*-%xb4!gsbd+m7873ma32@nzeusiwm-u_w#5'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -114,7 +120,7 @@ ROOT_URLCONF = 'SystemCore.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -206,3 +212,10 @@ REST_USE_JWT = True
 MEDIA_URL = '/images/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+
+EMAIL_FROM_USER=os.environ.get('EMAIL_FROM_USER')
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_HOST_USER = os.environ.get('EMAIL_FROM_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
+EMAIL_PORT = os.environ.get('EMAIL_PORT')

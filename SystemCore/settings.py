@@ -219,3 +219,4 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_FROM_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_PORT = os.environ.get('EMAIL_PORT')
+PASSWORD_RESET_TIMEOUT = 259200 # 3 days, in seconds

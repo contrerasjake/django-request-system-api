@@ -1,7 +1,7 @@
 from django.urls import path
 from django.conf.urls import include
 from rest_framework import routers
-from .views import LogoutAPIView, LoginView, RegisterView, UserInformationView, ChangePasswordView, ResendEmailVerification, CheckAccountStatus, activate_user
+from .views import LogoutAPIView, LoginView, RegisterView, UserInformationView, ChangePasswordView, ResendEmailVerification, CheckAccountStatus, activate_user, UserListView
 from rest_framework_simplejwt import views as jwt_views
 
 urlpatterns = [
@@ -15,4 +15,6 @@ urlpatterns = [
     path('token/verify/', jwt_views.TokenVerifyView.as_view(), name='token_verify'),
     path('getuser/', UserInformationView.as_view()),
     path('change_password/', ChangePasswordView.as_view(), name='auth_change_password'),
+    path('list/', UserListView.as_view()),
+    path('list/<int:pk>/', UserListView.as_view()),
 ]

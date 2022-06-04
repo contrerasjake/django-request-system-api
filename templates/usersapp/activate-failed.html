@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        {% load static %}
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Barangay Request System</title>
-        <link rel="stylesheet" href="css/styles.css" />
+        <link rel="stylesheet" href=" {% static 'UsersApp/css/styles.css' %} " />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -15,11 +16,11 @@
     </head>
     <body>
         <div class="container">
-          <img src="images/failed.png" alt="Activated" width="600px" height="500px" />
+          <img src="{% static 'UsersApp/images/failed.png' %}" alt="Activated" width="600px" height="500px" />
           <div class="right">
             <p class="top-text">I have bad news for you</p>
             <p class="down-text">
-              Account activation failed. Something went wrong.
+              Account activation failed. Something went wrong with your link. Please request a new one.
             </p>
           </div>
         </div>

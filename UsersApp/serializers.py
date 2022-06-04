@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from django.contrib.auth.password_validation import validate_password
 
 class UserInformationSerializer(serializers.ModelSerializer):
-    
+    date_joined = serializers.DateTimeField(format='%Y-%m-%d', input_formats=None)
     class Meta:
         model = User
         fields = ['email',
@@ -23,6 +23,8 @@ class UserInformationSerializer(serializers.ModelSerializer):
                   'civil_status',
                   'profile_pic',
                   'id_pic',
+                  'id',
+                  'date_joined',
                  ]
 
 class UserSerializer(serializers.ModelSerializer):

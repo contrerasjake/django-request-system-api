@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'rest_auth',
     'phonenumber_field',
     'corsheaders',
+    'drf_multiple_model',
     
 ]
 

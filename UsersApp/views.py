@@ -82,6 +82,7 @@ class CheckAccountStatus(RetrieveAPIView):
 
     def get(self, request):
         serializer = self.serializer_class(request.user)
+        print(request.user)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class RegisterView(APIView):
@@ -129,7 +130,7 @@ class UserInformationView(RetrieveUpdateAPIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class UserListView(ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
     serializer_class = UserInformationSerializer
     queryset = User.objects.all()
 

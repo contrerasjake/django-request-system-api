@@ -16,6 +16,7 @@ pyjwt = "*"
 djangorestframework-simplejwt = "*"
 django-cors-headers = "*"
 gunicorn = "*"
+django-rest-multiple-models = "*"
 
 [requires]
 python_version = "3.8"

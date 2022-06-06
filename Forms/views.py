@@ -46,7 +46,7 @@ class CedulaView(RetrieveUpdateDestroyAPIView):
         else:
             return [permissions.IsAdminUser()]
 
-    def get(self, request):
+    def post(self, request, format=None):
         user = self.request.user
         try:
             if(user.is_staff):
@@ -107,7 +107,7 @@ class BuildingClearanceView(RetrieveUpdateDestroyAPIView):
         else:
             return [permissions.IsAdminUser()]
 
-    def get(self, request):
+    def post(self, request, format=None):
         user = self.request.user
         try:
             if(user.is_staff):
@@ -169,7 +169,7 @@ class ConstituentIDView(RetrieveUpdateDestroyAPIView):
         else:
             return [permissions.IsAdminUser()]
 
-    def get(self, request):
+    def post(self, request, format=None):
         user = self.request.user
         try:
             if(user.is_staff):
@@ -231,7 +231,7 @@ class ResidencyView(RetrieveUpdateDestroyAPIView):
         else:
             return [permissions.IsAdminUser()]
 
-    def get(self, request):
+    def post(self, request, format=None):
         user = self.request.user
         try:
             if(user.is_staff):
@@ -293,7 +293,7 @@ class BarangayClearanceView(RetrieveUpdateDestroyAPIView):
         else:
             return [permissions.IsAdminUser()]
 
-    def get(self, request):
+    def post(self, request, format=None):
         user = self.request.user
         try:
             if(user.is_staff):
@@ -355,7 +355,7 @@ class ComelecView(RetrieveUpdateDestroyAPIView):
         else:
             return [permissions.IsAdminUser()]
 
-    def get(self, request):
+    def post(self, request, format=None):
         user = self.request.user
         try:
             if(user.is_staff):
@@ -417,7 +417,7 @@ class BusinessClosureView(RetrieveUpdateDestroyAPIView):
         else:
             return [permissions.IsAdminUser()]
 
-    def get(self, request):
+    def post(self, request, format=None):
         user = self.request.user
         try:
             if(user.is_staff):
@@ -479,7 +479,7 @@ class BailBondView(RetrieveUpdateDestroyAPIView):
         else:
             return [permissions.IsAdminUser()]
 
-    def get(self, request):
+    def post(self, request, format=None):
         user = self.request.user
         try:
             if(user.is_staff):
@@ -541,7 +541,7 @@ class GuardianshipView(RetrieveUpdateDestroyAPIView):
         else:
             return [permissions.IsAdminUser()]
 
-    def get(self, request):
+    def post(self, request, format=None):
         user = self.request.user
         try:
             if(user.is_staff):
@@ -603,7 +603,7 @@ class IndigencyBurialView(RetrieveUpdateDestroyAPIView):
         else:
             return [permissions.IsAdminUser()]
 
-    def get(self, request):
+    def post(self, request, format=None):
         user = self.request.user
         try:
             if(user.is_staff):
@@ -665,7 +665,7 @@ class IndigencyClearanceView(RetrieveUpdateDestroyAPIView):
         else:
             return [permissions.IsAdminUser()]
 
-    def get(self, request):
+    def post(self, request, format=None):
         user = self.request.user
         try:
             if(user.is_staff):
@@ -727,7 +727,7 @@ class VoucherView(RetrieveUpdateDestroyAPIView):
         else:
             return [permissions.IsAdminUser()]
 
-    def get(self, request):
+    def post(self, request, format=None):
         user = self.request.user
         try:
             if(user.is_staff):
@@ -789,7 +789,7 @@ class BusinessClearanceView(RetrieveUpdateDestroyAPIView):
         else:
             return [permissions.IsAdminUser()]
 
-    def get(self, request):
+    def post(self, request, format=None):
         user = self.request.user
         try:
             if(user.is_staff):
@@ -851,7 +851,7 @@ class ImmunizationView(RetrieveUpdateDestroyAPIView):
         else:
             return [permissions.IsAdminUser()]
 
-    def get(self, request):
+    def post(self, request, format=None):
         user = self.request.user
         try:
             if(user.is_staff):
@@ -913,7 +913,7 @@ class DentalServiceView(RetrieveUpdateDestroyAPIView):
         else:
             return [permissions.IsAdminUser()]
 
-    def get(self, request):
+    def post(self, request, format=None):
         user = self.request.user
         try:
             if(user.is_staff):
@@ -975,7 +975,7 @@ class MaternalCareView(RetrieveUpdateDestroyAPIView):
         else:
             return [permissions.IsAdminUser()]
 
-    def get(self, request):
+    def post(self, request, format=None):
         user = self.request.user
         try:
             if(user.is_staff):

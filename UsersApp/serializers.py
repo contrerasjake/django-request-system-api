@@ -121,3 +121,9 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
+
+class MailSenderSerializer(serializers.Serializer):
+    email = serializers.EmailField(max_length=60, min_length=3, allow_blank=False)
+    subject = serializers.CharField(max_length=None, min_length=None, allow_blank=False, trim_whitespace=True)
+    body = serializers.CharField(max_length=None, min_length=None, allow_blank=False, trim_whitespace=True)
+    

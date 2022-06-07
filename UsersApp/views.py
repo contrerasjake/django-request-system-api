@@ -2,12 +2,12 @@ from typing import ContextManager
 from django.shortcuts import render
 from django.contrib import auth
 from django.conf import settings
-from rest_framework import viewsets, generics, permissions, status
+from rest_framework import generics, permissions, status
 from rest_framework.views import APIView
 from rest_framework.generics import RetrieveUpdateAPIView, RetrieveAPIView, ListCreateAPIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
-from .serializers import UserInformationSerializer, UserSerializer, LogoutSerializer, LoginSerializer, ChangePasswordSerializer, AccountStatusSerializer
+from .serializers import *
 from .permissions import IsLoggedInUserOrAdmin, IsAdminUser
 from rest_framework.permissions import IsAuthenticated
 from .models import User
@@ -144,3 +144,23 @@ class ChangePasswordView(generics.UpdateAPIView):
         return obj
     permission_classes = (IsAuthenticated,)
     serializer_class = ChangePasswordSerializer
+
+def send_fresh_email(data):
+    email_subject = data['subject']
+    print(data['email'])
+    email_body = render_to_string('usersapp/send-email.html', {
+        'body': data['body'],
+    })
+
+    email=EmailMessage(subject=email_subject,body=email_body,from_email=settings.EMAIL_FROM_USER,to=[data['email']])
+    EmailThread(email).start()
+
+class MailSenderView(APIView):
+    permission_classes = [IsAdminUser]
+
+    def post(self, request):
+        serializer = MailSenderSerializer(data=request.data)
+        if(serializer.is_valid()):
+            send_fresh_email(serializer.data)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response("bad request", status=status.HTTP_400_BAD_REQUEST)

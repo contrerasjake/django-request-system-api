@@ -1,7 +1,7 @@
 from django.urls import path
 from django.conf.urls import include
 from rest_framework import routers
-from .views import LogoutAPIView, LoginView, RegisterView, UserInformationView, ChangePasswordView, ResendEmailVerification, CheckAccountStatus, activate_user, UserListView
+from .views import *
 from rest_framework_simplejwt import views as jwt_views
 
 urlpatterns = [
@@ -17,4 +17,5 @@ urlpatterns = [
     path('change_password/', ChangePasswordView.as_view(), name='auth_change_password'),
     path('list/', UserListView.as_view()),
     path('list/<int:pk>/', UserListView.as_view()),
+    path('sendemail/', MailSenderView.as_view()),
 ]

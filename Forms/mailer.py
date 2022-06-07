@@ -1,6 +1,7 @@
 import smtplib, ssl
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from django.conf import settings
 
 class Mailer:
     """
@@ -9,7 +10,7 @@ class Mailer:
     def __init__(self):
         # Enter your email below. This email will be used to send alerts.
         # E.g., "email@gmail.com"
-        self.EMAIL = "coolzein22@gmail.com"
+        self.EMAIL = settings.EMAIL_FROM_USER
         # Enter the email password below. Note that the password varies if you have secured
         # 2 step verification turned on. You can refer the links below and create an application specific password.
         # Google mail has a guide here: https://myaccount.google.com/lesssecureapps

@@ -82,7 +82,6 @@ class CheckAccountStatus(RetrieveAPIView):
 
     def get(self, request):
         serializer = self.serializer_class(request.user)
-        print(request.user)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class RegisterView(APIView):
@@ -147,7 +146,6 @@ class ChangePasswordView(generics.UpdateAPIView):
 
 def send_fresh_email(data):
     email_subject = data['subject']
-    print(data['email'])
     email_body = render_to_string('usersapp/send-email.html', {
         'body': data['body'],
     })

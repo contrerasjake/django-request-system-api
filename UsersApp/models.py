@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from datetime import date
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.conf import settings
+from cloudinary.models import CloudinaryField
 import uuid
 import os
 
@@ -196,8 +197,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     gender                  = models.CharField(max_length=10, choices=GENDER_CHOICES, null = True)
     province                = models.CharField(max_length=50, blank=False,null = True)
     civil_status            = models.CharField(max_length=50, blank=False, null = True, choices=CIVIL_STATUS)
-    profile_pic             = models.ImageField(null=True, blank=True, upload_to=upload_profilepic)
-    id_pic                  = models.ImageField(null=True, blank=True, upload_to=upload_idpic)
+    profile_pic             = CloudinaryField('image', null=True, blank=True, upload_to=upload_profilepic)
+    id_pic                  = CloudinaryField('image', null=True, blank=True, upload_to=upload_idpic)
 
     objects = UserManager()
 

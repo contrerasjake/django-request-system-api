@@ -197,8 +197,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     gender                  = models.CharField(max_length=10, choices=GENDER_CHOICES, null = True)
     province                = models.CharField(max_length=50, blank=False,null = True)
     civil_status            = models.CharField(max_length=50, blank=False, null = True, choices=CIVIL_STATUS)
-    profile_pic             = CloudinaryField('image', null=True, blank=True, upload_to=upload_profilepic)
-    id_pic                  = CloudinaryField('image', null=True, blank=True, upload_to=upload_idpic)
+    profile_pic             = CloudinaryField('image', null=True, blank=True, folder=upload_profilepic)
+    id_pic                  = CloudinaryField('image', null=True, blank=True, folder=upload_idpic)
 
     objects = UserManager()
 

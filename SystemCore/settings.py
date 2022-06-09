@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import django_heroku
+import cloudinary
 import os
 # https://django-environ.readthedocs.io/en/latest/index.html
 import environ
@@ -32,7 +33,7 @@ MEDIA_URL = "/media/"
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS=['brgy-landayan-odrs-app.herokuapp.com', '127.0.0.1', 'localhost']
 INTERNAL_IPS = ['*']
@@ -227,9 +228,9 @@ PASSWORD_RESET_TIMEOUT = 7200  #7200 = 2 hours, default is 259200 = 3 days, in s
 # Activate Django-Heroku.
 django_heroku.settings(locals())
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
-    'API_KEY': os.environ.get('API_KEY'),
-    'API_SECRET': os.environ.get('API_SECRET'),
-}
+cloudinary.config( 
+  cloud_name = os.environ.get('CLOUD_NAME'),
+  api_key = os.environ.get('API_KEY'),
+  api_secret = os.environ.get('API_SECRET'),
+)
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'

@@ -39,6 +39,7 @@ INTERNAL_IPS = ['*']
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOWED_ORIGINS = [
     'https://landayan-odrs.herokuapp.com',
+    'https://landayan-odrs-test.herokuapp.com',
     'http://localhost:3000',
 ]
 

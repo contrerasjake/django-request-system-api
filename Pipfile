@@ -19,6 +19,7 @@ gunicorn = "*"
 django-rest-multiple-models = "*"
 django-heroku = "*"
 whitenoise = "*"
+django-environ = "*"
 
 [requires]
 python_version = "3.8"

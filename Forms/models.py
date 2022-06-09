@@ -3,6 +3,7 @@ from django.db.models import fields
 from UsersApp.models import User
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from cloudinary.models import CloudinaryField
 # Create your models here.
 
 
@@ -34,8 +35,8 @@ class ConstituentID(models.Model):
     request_number = models.AutoField(primary_key=True)
     id_number = models.CharField(max_length = 100, null=True, blank=True)
     date_received = models.DateField(blank=False)
-    signature = models.ImageField(blank=False, null=True, upload_to="signature/%Y/%m/%D/")
-    picture = models.ImageField(blank=False, null=True, upload_to="pic/%Y/%m/%D/")
+    signature = CloudinaryField('image', blank=False, null=True, folder="constituent/signature")
+    picture = CloudinaryField('image', blank=False, null=True, folder="constituent/pic")
     status = models.CharField(max_length = 100, blank=False, default="Pending")
     date_requested = models.DateField(verbose_name="date requested", auto_now_add=True)
     document_name = models.CharField(max_length = 100, blank=False, default="Constituent ID")

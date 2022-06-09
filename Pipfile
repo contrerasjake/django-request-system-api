@@ -17,6 +17,8 @@ djangorestframework-simplejwt = "*"
 django-cors-headers = "*"
 gunicorn = "*"
 django-rest-multiple-models = "*"
+django-heroku = "*"
+whitenoise = "*"
 
 [requires]
 python_version = "3.8"

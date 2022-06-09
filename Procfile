@@ -1,1 +1,1 @@
-web: gunicorn SystemCore.wsgi
+web: gunicorn SystemCore.wsgi --log-file -

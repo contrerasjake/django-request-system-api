@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import django_heroku
 import os
 # https://django-environ.readthedocs.io/en/latest/index.html
 import environ
@@ -32,17 +32,15 @@ MEDIA_URL = "/media/"
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-
-# ALLOWED_HOSTS=['http://localhost:3000']
-
-ALLOWED_HOSTS=['.herokuapp.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS=['brgy-landayan-odrs-app.herokuapp.com', '127.0.0.1', 'localhost']
 INTERNAL_IPS = ['*']
-CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ORIGIN_WHITELIST = (
-#        'http://localhost:3000',
-# )
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOWED_ORIGINS = [
+    'https://landayan-odrs.herokuapp.com',
+    'http://localhost:3000',
+]
 
 
 # Application definition
@@ -74,6 +72,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 REST_FRAMEWORK = {
@@ -221,3 +220,6 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_PORT = os.environ.get('EMAIL_PORT')
 PASSWORD_RESET_TIMEOUT = 7200  #7200 = 2 hours, default is 259200 = 3 days, in seconds
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())

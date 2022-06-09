@@ -20,6 +20,8 @@ django-rest-multiple-models = "*"
 django-heroku = "*"
 whitenoise = "*"
 django-environ = "*"
+cloudinary = "*"
+django-cloudinary-storage = "*"
 
 [requires]
 python_version = "3.8"

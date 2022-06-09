@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
@@ -61,6 +62,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'corsheaders',
     'drf_multiple_model',
+    'cloudinary',
     
 ]
 
@@ -224,3 +226,10 @@ PASSWORD_RESET_TIMEOUT = 7200  #7200 = 2 hours, default is 259200 = 3 days, in s
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
+    'API_KEY': os.environ.get('API_KEY'),
+    'API_SECRET': os.environ.get('API_SECRET'),
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
